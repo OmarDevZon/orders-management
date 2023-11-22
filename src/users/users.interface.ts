@@ -1,4 +1,4 @@
-export interface User {
+interface User {
   userId: number;
   username: string;
   password: string;
@@ -16,3 +16,4 @@ export interface User {
     country: string;
   };
 }
+export default User;

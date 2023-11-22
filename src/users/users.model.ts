@@ -1,7 +1,9 @@
-import { Schema } from 'mongoose';
-import { User } from './users.interface';
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+import User from './users.interface';
 
-export const userModel = new Schema<User>({
+// const userModel = new Schema<User>({
+const userModel = new Schema<User>({
   userId: {
     type: Number,
     required: true,
@@ -33,7 +35,8 @@ export const userModel = new Schema<User>({
     message: 'Email is required',
   },
   isActive: { type: Boolean, default: true },
-  hobbies: { type: [String] },
+  hobbies: [{ type: String }],
+  //   hobbies: { type: [String] },
   address: {
     type: Object,
     required: true,
@@ -42,3 +45,6 @@ export const userModel = new Schema<User>({
     country: { type: String, required: true, message: 'Country is required' },
   },
 });
+
+const user = mongoose.model<User>('User', userModel);
+export default user;
