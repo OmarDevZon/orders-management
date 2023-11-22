@@ -9,4 +9,5 @@ export default {
   MONGO_URI_PROD: process.env.MONGO_URI_PROD,
   MONGO_PROD: process.env.MONGO_PROD,
   WELCOME_MESSAGE: process.env.WELCOME_MESSAGE,
+  BCRYPT_ROUNDS: process.env.BCRYPT_ROUNDS,
 };

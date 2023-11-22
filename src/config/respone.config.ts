@@ -12,6 +12,6 @@ export const errorFun = (res: Response, error?: any) => {
   res.status(500).json({
     success: false,
     data: error,
-    message: 'Somethig is wrong',
+    message: 'Something is wrong',
   });
 };

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 import User from './users.interface';
+import { passwordHide, passwordPlashing } from './users.meddle.ware';
 
 // const userModel = new Schema<User>({
 const userModel = new Schema<User>({
@@ -45,6 +46,8 @@ const userModel = new Schema<User>({
     country: { type: String, required: true, message: 'Country is required' },
   },
 });
+passwordPlashing(userModel);
+passwordHide(userModel);
 
 const user = mongoose.model<User>('User', userModel);
 export default user;
