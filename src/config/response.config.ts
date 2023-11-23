@@ -8,10 +8,10 @@ export const success = (res: Response, result?: any, message?: string) => {
   });
 };
 
-export const errorFun = (res: Response, error?: any) => {
+export const errorFun = (res: Response, error?: any, message? : string) => {
   res.status(500).json({
     success: false,
     data: error,
-    message: 'Something is wrong',
+    message :message,
   });
 };

@@ -6,6 +6,20 @@ export const addUserService = async (user: User) => {
   return result;
 };
 export const getAllUserService = async () => {
-  const result = await userModel.find();
+  const result = await userModel
+    .find()
+    .select('-userId')
+    .select('-password')
+    .select('-isActive')
+    .select('-hobbies');
+  return result;
+};
+export const getUserByIdService = async (id : number | null | undefined) => {
+  const result = await userModel.findOne({ userId :id}  )
+  .select('-userId')
+  .select('-password')
+  .select('-isActive')
+  .select('-hobbies');
+
   return result;
 };
