@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import config from ".";
 
-export async function databaseConecting() {
+export async function databaseConnecting() {
     try {
       if (config.MONGO_PROD as object | undefined) {
         await mongoose.connect(config.MONGO_URI_PROD as string);

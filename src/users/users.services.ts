@@ -36,3 +36,4 @@ export const deleteUserByIdService = async (id: number | null | undefined) => {
   const result = await userModel.deleteOne({ userId: id });
   return result;
 };
+

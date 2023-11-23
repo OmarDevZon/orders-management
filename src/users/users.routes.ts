@@ -14,6 +14,5 @@ router.get('/', getAllUserControllers);
 router.get('/:id', getUserByIdControllers);
 router.put('/:id', updateUserByIdControllers);
 router.delete('/:id', deleteUserByIdControllers);
-router.put('/:id/orders', updateUserByIdControllers);
 
 export const userRoutes = router;
