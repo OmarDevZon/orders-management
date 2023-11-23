@@ -1,6 +1,7 @@
+import User from './users.interface';
 import userModel from './users.model';
 
-export const addUserService = async (user: any) => {
+export const addUserService = async (user: User) => {
   const result = await userModel.create(user);
   return result;
 };

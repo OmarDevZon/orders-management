@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 import Orders from './orders.interface';
-import { ordersMeddleWare } from './orders.meddle.ware';
 
 const ordersModel = new Schema<Orders>({
   userId: Number,
@@ -15,7 +14,6 @@ const ordersModel = new Schema<Orders>({
   ],
 });
 
-// ordersMeddleWare(ordersModel);
 
 const user = mongoose.model<Orders>('Orders', ordersModel);
 export default user;

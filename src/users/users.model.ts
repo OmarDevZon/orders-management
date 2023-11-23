@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 import User from './users.interface';
-import { passwordHide, passwordPlashing } from './users.meddle.ware';
+import {  passwordPlashing } from './users.meddle.ware';
 
-// const userModel = new Schema<User>({
 const userModel = new Schema<User>({
   userId: {
     type: Number,
@@ -37,7 +36,6 @@ const userModel = new Schema<User>({
   },
   isActive: { type: Boolean, default: true },
   hobbies: [{ type: String }],
-  //   hobbies: { type: [String] },
   address: {
     type: Object,
     required: true,
@@ -47,7 +45,7 @@ const userModel = new Schema<User>({
   },
 });
 passwordPlashing(userModel);
-passwordHide(userModel);
+// passwordHide(userModel);
 
 const user = mongoose.model<User>('User', userModel);
 export default user;

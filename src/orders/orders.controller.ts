@@ -6,22 +6,21 @@ export const ordersControllers = async (req: Request, res: Response) => {
   const { id }: { id?: number | null | undefined } = req.params;
   const product = req.body;
   try {
-    const result = await ordersService( id, product);
+    const result = await ordersService(id, product);
+    
+    
+    if (result) {
+      const message = 'User Update successfully!';
+      success(res, result, message);
+    } else {
+      const message = 'User not found';
+      const error = {
+        code: 404,
+        description: 'User not found!',
+      };
+      errorFun(res, error, message);
+    }
 
-    const message = 'User Update successfully!';
-    success(res, result, message);
-
-    // if (result?.modifiedCount === (1 as number)) {
-    //   const message = 'User Update successfully!';
-    //   success(res, result, message);
-    // } else {
-    //   const message = 'User not found';
-    //   const error = {
-    //     code: 404,
-    //     description: 'User not found!',
-    //   };
-    //   errorFun(res, error, message);
-    // }
   } catch (error) {
     errorFun(res, error);
   }

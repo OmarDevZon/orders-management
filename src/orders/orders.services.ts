@@ -1,31 +1,36 @@
-import ordersModel from './orders.model';
+import userModel from '../users/users.model';
+import ordersModel from './/orders.model';
+
 
 export const ordersService = async (
   id: number | null | undefined,
   product: any,
 ) => {
-  const result = await ordersModel.findOne({ userId: id });
+  const findUser = await userModel.findOne({ userId: id });
+  const findOrders = await ordersModel.findOne({ userId: id });
 
-  // console.log(product);
   const { productName, price, quantity } = product;
   const createOrder = {
     userId: id,
     orders: [{ productName, price, quantity }],
   };
 
-  if (result === null) {
-    const result = await ordersModel.create(createOrder);
-    return result;
+  if (findUser === null) {
+    return false;
   } else {
-    const result = await ordersModel.updateOne(
-      { userId: id },
-      {
-        $push: {
-          orders: { productName, price, quantity },
+    if (findOrders === null) {
+      const result = await ordersModel.create(createOrder);
+      return result;
+    } else {
+      const result = await ordersModel.updateOne(
+        { userId: id },
+        {
+          $push: {
+            orders: { productName, price, quantity },
+          },
         },
-      },
-    );
-
-    return result;
+      );
+      return result;
+    }
   }
 };
