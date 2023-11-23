@@ -1,7 +1,6 @@
-import User from './users.interface';
 import userModel from './users.model';
 
-export const addUserService = async (user: User) => {
+export const addUserService = async (user: any) => {
   const result = await userModel.create(user);
   return result;
 };
@@ -22,6 +21,14 @@ export const getUserByIdService = async (id: number | null | undefined) => {
     .select('-isActive')
     .select('-hobbies');
 
+  return result;
+};
+
+export const updateUserByIdService = async (
+  user: any,
+  id: number | null | undefined,
+) => {
+  const result = await userModel.updateOne({ userId: id }, { $set: user });
   return result;
 };
 
