@@ -1,7 +1,6 @@
 import userModel from '../users/users.model';
 import ordersModel from './/orders.model';
 
-
 export const ordersService = async (
   id: number | null | undefined,
   product: any,
@@ -33,4 +32,10 @@ export const ordersService = async (
       return result;
     }
   }
+};
+
+export const getUserOrdersService = async (id: number | null | undefined) => {
+  const result = await ordersModel.findOne({ userId: id });
+
+  return result;
 };

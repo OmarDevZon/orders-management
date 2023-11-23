@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { errorFun, success } from '../config/response.config';
-import { ordersService } from './orders.services';
+import { getUserOrdersService, ordersService } from './orders.services';
 
 export const ordersControllers = async (req: Request, res: Response) => {
   const { id }: { id?: number | null | undefined } = req.params;
@@ -23,5 +23,27 @@ export const ordersControllers = async (req: Request, res: Response) => {
 
   } catch (error) {
     errorFun(res, error);
+  }
+};
+
+export const getUserOrdersControllers = async (req: Request, res: Response) => {
+  try {
+    const { id }: { id?: number | null | undefined } = req.params;
+
+    const result = await getUserOrdersService(id);
+    if (result) {
+      const message = 'Order fetched successfully!';
+      success(res, result, message);
+    } else {
+      const message = 'Order not found';
+      const error = {
+        code: 404,
+        description: 'Order not found!',
+      };
+      errorFun(res, error, message);
+    }
+  } catch (error) {
+    const message = 'server is wick';
+    errorFun(res, error, message);
   }
 };
