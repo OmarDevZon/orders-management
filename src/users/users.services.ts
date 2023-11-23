@@ -14,12 +14,18 @@ export const getAllUserService = async () => {
     .select('-hobbies');
   return result;
 };
-export const getUserByIdService = async (id : number | null | undefined) => {
-  const result = await userModel.findOne({ userId :id}  )
-  .select('-userId')
-  .select('-password')
-  .select('-isActive')
-  .select('-hobbies');
+export const getUserByIdService = async (id: number | null | undefined) => {
+  const result = await userModel
+    .findOne({ userId: id })
+    .select('-userId')
+    .select('-password')
+    .select('-isActive')
+    .select('-hobbies');
 
+  return result;
+};
+
+export const deleteUserByIdService = async (id: number | null | undefined) => {
+  const result = await userModel.deleteOne({ userId: id });
   return result;
 };
