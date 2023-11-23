@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import { errorFun, success } from '../config/response.config';
-import { getUserOrdersService, ordersService } from './orders.services';
+import {
+  getUserOrdersService,
+  ordersService,
+  totalPriceForSpecificUserService,
+} from './orders.services';
 
 export const ordersControllers = async (req: Request, res: Response) => {
-  const { id }: { id?: number | null | undefined } = req.params;
+  const { userId }: { userId?: number | null | undefined } = req.params;
   const product = req.body;
   try {
-    const result = await ordersService(id, product);
-    
-    
+    const result = await ordersService(userId, product);
     if (result) {
       const message = 'User Update successfully!';
       success(res, result, message);
@@ -20,7 +22,6 @@ export const ordersControllers = async (req: Request, res: Response) => {
       };
       errorFun(res, error, message);
     }
-
   } catch (error) {
     errorFun(res, error);
   }
@@ -28,11 +29,32 @@ export const ordersControllers = async (req: Request, res: Response) => {
 
 export const getUserOrdersControllers = async (req: Request, res: Response) => {
   try {
-    const { id }: { id?: number | null | undefined } = req.params;
+    const { userId }: { userId?: number | null | undefined } = req.params;
 
-    const result = await getUserOrdersService(id);
+    const result = await getUserOrdersService(userId);
     if (result) {
       const message = 'Order fetched successfully!';
+      success(res, result, message);
+    } else {
+      const message = 'Order not found';
+      const error = {
+        code: 404,
+        description: 'Order not found!',
+      };
+      errorFun(res, error, message);
+    }
+  } catch (error) {
+    const message = 'server is wick';
+    errorFun(res, error, message);
+  }
+};
+export const totalPriceForSpecificUserControllers = async (req: Request, res: Response) => {
+  try {
+    const { userId }: { userId?: number | null | undefined } = req.params;
+
+    const result = await totalPriceForSpecificUserService(userId);
+    if (result) {
+      const message = 'Total price calculated successfully!';
       success(res, result, message);
     } else {
       const message = 'Order not found';

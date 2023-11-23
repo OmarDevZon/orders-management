@@ -1,11 +1,12 @@
 import express from 'express';
-import { getUserOrdersControllers, ordersControllers } from './orders.controller';
+import { getUserOrdersControllers, ordersControllers, totalPriceForSpecificUserControllers } from './orders.controller';
 
 
 const router = express.Router();
 
-router.put('/:id/orders', ordersControllers);
-router.get('/:id/orders', getUserOrdersControllers);
+router.put('/:userId/orders', ordersControllers);
+router.get('/:userId/orders', getUserOrdersControllers);
+router.get('/:userId/orders/total-price', totalPriceForSpecificUserControllers);
 
 
 export const ordersRoutes = router;

@@ -2,15 +2,15 @@ import userModel from '../users/users.model';
 import ordersModel from './/orders.model';
 
 export const ordersService = async (
-  id: number | null | undefined,
+  userId: number | null | undefined,
   product: any,
 ) => {
-  const findUser = await userModel.findOne({ userId: id });
-  const findOrders = await ordersModel.findOne({ userId: id });
+  const findUser = await userModel.findOne({ userId });
+  const findOrders = await ordersModel.findOne({ userId });
 
   const { productName, price, quantity } = product;
   const createOrder = {
-    userId: id,
+    userId,
     orders: [{ productName, price, quantity }],
   };
 
@@ -22,7 +22,7 @@ export const ordersService = async (
       return result;
     } else {
       const result = await ordersModel.updateOne(
-        { userId: id },
+        { userId },
         {
           $push: {
             orders: { productName, price, quantity },
@@ -34,8 +34,26 @@ export const ordersService = async (
   }
 };
 
-export const getUserOrdersService = async (id: number | null | undefined) => {
-  const result = await ordersModel.findOne({ userId: id });
+export const getUserOrdersService = async (
+  userId: number | null | undefined,
+) => {
+  const result = await ordersModel.findOne({ userId });
 
   return result;
+};
+export const totalPriceForSpecificUserService = async (
+  userId: number | null | undefined,
+) => {
+  const result = await ordersModel.findOne({ userId });
+
+  const myOrders = result?.orders;
+
+  let totalPrice = 0;
+  myOrders?.map((product) => {
+    totalPrice = totalPrice + product?.price * product?.quantity;
+  });
+  
+  return {
+    totalPrice,
+  };
 };
