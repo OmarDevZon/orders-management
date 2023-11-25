@@ -1,6 +1,5 @@
 # Simple Order Management Server
 
-
 1. Clone the repository:
 
    ```bash
@@ -16,7 +15,6 @@ instal node modules
 ```bash
  npm i
 ```
-
 
 Runs the application
 
@@ -75,10 +73,13 @@ Formats code using Prettier
 ```bash
  yarn run format
 ```
+
 ## .env file details
+
 (very import don't forget add this file in your root file)
 
 2. create a .env file in root path
+
 ```bash
 PORT = {port is number like 3001}
 BCRYPT_ROUNDS = {BCRYPT is number like 23}
@@ -89,12 +90,13 @@ MONGO_URI_PROD = 'your production database url'
 ```
 
 ## API List
-    1. create a user [host-link] ```/api/users``` 
-    2. get all users [host-link] ```/api/users``` 
-    3. get all users by id [host-link] ```/api/users/```userId
-    4. update a user by id [host-link] ```/api/users/```userId 
-    5. delete a user by id [host-link] ```/api/users/```userId 
-    6. create and update [host-link] ```/api/users/<userId>/orders```
-    7. Retrieve all orders for a specific user [host-link] ```/api/users/<userId>/orders```
+
+    1. create a user [host-link] ``` /api/users ```
+    2. get all users [host-link] ``` /api/users ```
+    3. get all users by id [host-link] ``` /api/users/ ``` userId
+    4. update a user by id [host-link] ``` /api/users/ ``` userId
+    5. delete a user by id [host-link] ```/api/users/ ``` userId
+    6. create and update [host-link] ```/api/users/<userId>/orders ```
+    7. Retrieve all orders for a specific user [host-link] ``` /api/users/<userId>/orders ```
     8.  Calculate Total Price of Orders for a Specific User
-     [host-link] ```/api/users/<userId>/orders/total-price```
+     [host-link] ``` /api/users/<userId>/orders/total-price ```

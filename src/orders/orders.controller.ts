@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { errorFun, success } from '../config/response.config';
+import { ordersSchema } from './orders.validation';
 import {
   getUserOrdersService,
   ordersService,
@@ -9,6 +10,13 @@ import {
 export const ordersControllers = async (req: Request, res: Response) => {
   const { userId }: { userId?: number | null | undefined } = req.params;
   const product = req.body;
+
+  const { error } = ordersSchema.validate(product);
+  if (error) {
+    const message = error?.details[0]?.message;
+    return errorFun(res, error, message);
+  }
+
   try {
     const result = await ordersService(userId, product);
     if (result) {
@@ -48,7 +56,10 @@ export const getUserOrdersControllers = async (req: Request, res: Response) => {
     errorFun(res, error, message);
   }
 };
-export const totalPriceForSpecificUserControllers = async (req: Request, res: Response) => {
+export const totalPriceForSpecificUserControllers = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const { userId }: { userId?: number | null | undefined } = req.params;
 

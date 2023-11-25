@@ -1,4 +1,4 @@
-interface OrdersInterface {
+interface ProductInterface {
   userId? : number;
   orders?: [object];
   productName: string;
@@ -6,4 +6,4 @@ interface OrdersInterface {
   quantity: number;
 }
 
-export default OrdersInterface;
+export default ProductInterface;

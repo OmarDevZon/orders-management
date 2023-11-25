@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { errorFun, success } from '../config/response.config';
+import { userJoiSchema, userUpdateJoiSchema } from './users.validation';
 import {
   addUserService,
   deleteUserByIdService,
@@ -10,6 +11,14 @@ import {
 
 export const createUserControllers = async (req: Request, res: Response) => {
   const user = req.body;
+
+  const { error } = userJoiSchema.validate(user);
+
+  if (error) {
+    const message = error?.details[0]?.message;
+    return errorFun(res, error, message);
+  }
+
   try {
     const result = await addUserService(user);
     const message = 'User created successfully!';
@@ -18,6 +27,7 @@ export const createUserControllers = async (req: Request, res: Response) => {
     errorFun(res, error);
   }
 };
+
 export const getAllUserControllers = async (req: Request, res: Response) => {
   try {
     const result = await getAllUserService();
@@ -56,6 +66,13 @@ export const updateUserByIdControllers = async (
 ) => {
   const { id }: { id?: number | null | undefined } = req.params;
   const user = req.body;
+
+  const { error } = userUpdateJoiSchema.validate(user);
+
+  if (error) {
+    const message = error?.details[0]?.message;
+    return errorFun(res, error, message);
+  }
   try {
     const result = await updateUserByIdService(user, id);
     if (result?.modifiedCount === (1 as number)) {

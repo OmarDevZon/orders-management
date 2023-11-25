@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
+import ProductInterface from './orders.interface';
 const { Schema } = mongoose;
 
-import Orders from './orders.interface';
 
-const ordersModel = new Schema<Orders>({
-  userId: Number,
+
+const ordersModel = new Schema<ProductInterface>({
+  userId: {type : Number , required : true},
   orders: [
     {
       productName: { type: String, required: true, message: ' is required' },
@@ -15,5 +16,5 @@ const ordersModel = new Schema<Orders>({
 });
 
 
-const user = mongoose.model<Orders>('Orders', ordersModel);
+const user = mongoose.model<ProductInterface>('Orders', ordersModel);
 export default user;

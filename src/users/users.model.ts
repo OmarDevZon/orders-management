@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+
 const { Schema } = mongoose;
 import User from './users.interface';
-import {  passwordPlashing } from './users.meddle.ware';
+import config from '../config';
 
 const userModel = new Schema<User>({
   userId: {
@@ -44,8 +46,14 @@ const userModel = new Schema<User>({
     country: { type: String, required: true, message: 'Country is required' },
   },
 });
-passwordPlashing(userModel);
-// passwordHide(userModel);
+
+userModel.pre('save', async function (next) {
+  this.password = await bcrypt.hash(
+    this?.password,
+    Number(config.BCRYPT_ROUNDS),
+  );
+  next();
+});
 
 const user = mongoose.model<User>('User', userModel);
 export default user;

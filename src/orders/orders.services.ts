@@ -1,5 +1,6 @@
 import userModel from '../users/users.model';
-import ordersModel from './/orders.model';
+import ProductInterface from './orders.interface';
+import ordersModel from './orders.model';
 
 export const ordersService = async (
   userId: number | null | undefined,
@@ -49,10 +50,10 @@ export const totalPriceForSpecificUserService = async (
   const myOrders = result?.orders;
 
   let totalPrice = 0;
-  myOrders?.map((product) => {
-    totalPrice = totalPrice + product?.price * product?.quantity;
+  (myOrders as ProductInterface[])?.map((product: ProductInterface) => {
+    totalPrice += product.price * product.quantity;
   });
-  
+
   return {
     totalPrice,
   };
