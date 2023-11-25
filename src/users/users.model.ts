@@ -37,6 +37,7 @@ const userModel = new Schema<User>({
     message: 'Email is required',
   },
   isActive: { type: Boolean, default: true },
+  orders: { type: Array, default: [] },
   hobbies: [{ type: String }],
   address: {
     type: Object,

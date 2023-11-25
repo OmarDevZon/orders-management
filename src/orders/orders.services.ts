@@ -1,60 +1,56 @@
 import userModel from '../users/users.model';
 import ProductInterface from './orders.interface';
-import ordersModel from './orders.model';
+// import ProductInterface from './orders.interface';
 
 export const ordersService = async (
   userId: number | null | undefined,
   product: any,
 ) => {
   const findUser = await userModel.findOne({ userId });
-  const findOrders = await ordersModel.findOne({ userId });
 
   const { productName, price, quantity } = product;
-  const createOrder = {
-    userId,
-    orders: [{ productName, price, quantity }],
-  };
 
   if (findUser === null) {
     return false;
   } else {
-    if (findOrders === null) {
-      const result = await ordersModel.create(createOrder);
-      return result;
-    } else {
-      const result = await ordersModel.updateOne(
-        { userId },
-        {
-          $push: {
-            orders: { productName, price, quantity },
-          },
+    const result = await userModel.updateOne(
+      { userId },
+      {
+        $push: {
+          orders: { productName, price, quantity },
         },
-      );
-      return result;
-    }
+      },
+    );
+    return result;
   }
 };
 
 export const getUserOrdersService = async (
   userId: number | null | undefined,
 ) => {
-  const result = await ordersModel.findOne({ userId });
+  const result = await userModel.findOne({ userId });
 
   return result;
 };
+
 export const totalPriceForSpecificUserService = async (
   userId: number | null | undefined,
 ) => {
-  const result = await ordersModel.findOne({ userId });
+  const findUser = await userModel.findOne({ userId });
 
-  const myOrders = result?.orders;
+  if (findUser === null) {
+    return false;
+  }
+
+  const myOrders: any = findUser?.orders;
 
   let totalPrice = 0;
-  (myOrders as ProductInterface[])?.map((product: ProductInterface) => {
+  myOrders?.map((product: ProductInterface) => {
     totalPrice += product.price * product.quantity;
   });
 
+  const toFixedTotalPrice = totalPrice.toFixed(2);
   return {
-    totalPrice,
+    totalPrice: toFixedTotalPrice,
   };
 };

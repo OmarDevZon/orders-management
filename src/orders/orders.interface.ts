@@ -1,5 +1,4 @@
 interface ProductInterface {
-  userId? : number;
   orders?: [object];
   productName: string;
   price: number;

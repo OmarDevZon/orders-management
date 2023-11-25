@@ -1,3 +1,10 @@
+interface ProductInterface {
+  orders?: [object];
+  productName: string;
+  price: number;
+  quantity: number;
+}
+
 interface User {
   userId: number;
   username: string;
@@ -6,6 +13,7 @@ interface User {
     firstName: string;
     lastName: string;
   };
+  orders?: ProductInterface;
   age: number;
   email: string;
   isActive: boolean;

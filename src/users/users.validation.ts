@@ -1,7 +1,3 @@
-import config from '../config';
-import User from './users.interface';
-import bcrypt from 'bcrypt';
-
 import Joi from 'joi';
 
 export const userJoiSchema = Joi.object({
@@ -125,13 +121,3 @@ export const userUpdateJoiSchema = Joi.object({
     }),
   }).required(),
 });
-
-// export function passwordPlashing(userModel: User) {
-//   userModel.pre('save', async function (next) {
-//     this.password = await bcrypt.hash(
-//       this?.password,
-//       Number(config.BCRYPT_ROUNDS),
-//     );
-//     next();
-//   });
-// }
