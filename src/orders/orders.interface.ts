@@ -1,8 +1,12 @@
-interface ProductInterface {
-  orders?: [object];
+export interface orders {
+  orders?: [];
+}
+
+export interface ProductInterface {
+  orders?: orders;
   productName: string;
   price: number;
   quantity: number;
 }
 
-export default ProductInterface;
+

@@ -4,9 +4,12 @@ import { errorFun, success } from '../config/response.config';
 import {
   getUserOrdersService,
   // getUserOrdersService,
-  ordersService, totalPriceForSpecificUserService,
+  ordersService,
+  totalPriceForSpecificUserService,
   // totalPriceForSpecificUserService,
 } from './orders.services';
+// import { orders } from './orders.interface';
+
 
 export const ordersControllers = async (req: Request, res: Response) => {
   const { userId }: { userId?: number | null | undefined } = req.params;
@@ -40,9 +43,11 @@ export const getUserOrdersControllers = async (req: Request, res: Response) => {
   try {
     const { userId }: { userId?: number | null | undefined } = req.params;
 
-    const result = await getUserOrdersService(userId);
-    if (result) {
+    const myOrders : array =  await getUserOrdersService(userId);
+
+    if (myOrders?.orders.length > 0) {
       const message = 'Order fetched successfully!';
+      const result = { orders: myOrders?.orders };
       success(res, result, message);
     } else {
       const message = 'Order not found';
